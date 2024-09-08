@@ -3,8 +3,7 @@
 mkdir /infra/cloudbeaver
 
 docker run \
-  -it \
-  -d \
+  -itd \
   --restart unless-stopped \
   -p 8080:8978 \
   \

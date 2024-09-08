@@ -3,8 +3,7 @@
 mkdir /infra/syncthing
 
 docker run \
-  -d \
-  -it \
+  -itd \
   --restart=unless-stopped \
   -p 22000:22000/tcp \
   -p 22000:22000/udp \

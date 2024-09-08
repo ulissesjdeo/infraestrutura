@@ -7,8 +7,7 @@
 mkdir /infra/postgres
 
 docker run \
-  -it \
-  -d \
+  -itd \
   --restart=unless-stopped \
   \
   -v /infra/postgres:/var/lib/postgresql/data \
