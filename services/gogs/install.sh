@@ -4,7 +4,7 @@ mkdir -p /infra/gogs
 
 docker run \
   -itd \
-  --restart=unless-stopped \
+  --restart unless-stopped \
   -p 10880:3000 \
   -p 10022:22 \
   \

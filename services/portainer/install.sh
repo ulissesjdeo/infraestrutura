@@ -4,7 +4,7 @@ mkdir -p /infra/portainer
 
 docker run \
   -d \
-  --restart=always \
+  --restart always \
   -p 9443:9443 \
   -p 9000:9000 \
   -p 8000:8000 \
