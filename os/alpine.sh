@@ -1,23 +1,21 @@
-# Habilite o repositorio "community"
+# Habilite o repositório "community"
 vi /etc/apk/repositories
 
-# Selecionando melhor mirror
+# Selecione o melhor mirror
 setup-apkrepos -cf
 
 # Atualizando o sistema
-apk update && apk upgrade
+apk update
+apk upgrade
 
-# Instalando pacotes
-apk add git docker docker-cli-compose
+# Instale os pacotes
+apk add git docker
 
-# Iniciando docker
+# Inicie o docker
 service docker start
 
-# Adicionando docker ao startup
+# Adicione o docker ao startup
 rc-update add docker default
-
-# Clone o repositorio "infra" (ou traga ele via pendrive/rede)
-git clone ...
 
 # Mude a porta do SSH do sistema para 48022
 vi /etc/ssh/sshd_config
