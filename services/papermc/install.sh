@@ -9,6 +9,7 @@ docker run \
   -p 25565:25565/udp \
   \
   -e MEMORYSIZE="4G" \
+  -e PAPERMC_FLAGS='' \
   \
   -v /infra/papermc:/data:rw \
   --name papermc \
