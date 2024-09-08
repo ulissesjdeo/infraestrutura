@@ -1,6 +1,6 @@
 # https://hub.docker.com/r/gogs/gogs
 
-mkdir /infra/gogs
+mkdir -p /infra/gogs
 
 docker run \
   -itd \

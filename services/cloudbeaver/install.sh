@@ -1,6 +1,6 @@
 # https://hub.docker.com/r/dbeaver/cloudbeaver
 
-mkdir /infra/cloudbeaver
+mkdir -p /infra/cloudbeaver
 
 docker run \
   -itd \

@@ -1,6 +1,6 @@
 # https://hub.docker.com/r/syncthing/syncthing
 
-mkdir /infra/syncthing
+mkdir -p /infra/syncthing
 
 docker run \
   -itd \

@@ -5,7 +5,7 @@
 
 export GITLAB=/infra/gitlab
 
-mkdir $GITLAB
+mkdir -p $GITLAB
 
 docker run \
   -d \

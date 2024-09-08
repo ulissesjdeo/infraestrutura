@@ -4,7 +4,7 @@
 # https://stackoverflow.com/questions/2094963/postgresql-improving-pg-dump-pg-restore-performance
 # https://stackoverflow.com/questions/5529603/best-method-for-postgresql-incremental-backup
 
-mkdir /infra/postgres
+mkdir -p /infra/postgres
 
 docker run \
   -itd \

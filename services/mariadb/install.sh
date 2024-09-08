@@ -1,6 +1,6 @@
 # https://hub.docker.com/_/mariadb
 
-mkdir /infra/mariadb
+mkdir -p /infra/mariadb
 
 docker run \
   -d \

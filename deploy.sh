@@ -1,5 +1,3 @@
-mkdir /infra 
-
 sh services/cloudbeaver/install.sh
 sh services/gitlab/install.sh
 sh services/gogs/install.sh

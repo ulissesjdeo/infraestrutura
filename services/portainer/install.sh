@@ -1,6 +1,6 @@
 # https://docs.portainer.io/start/install-ce/server/docker/linux
 
-mkdir /infra/portainer
+mkdir -p /infra/portainer
 
 docker run \
   -d \
