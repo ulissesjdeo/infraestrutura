@@ -7,8 +7,11 @@ echo 'Tire o comentário dos serviços que irão ser usados'
 
 # Git
 #sh services/gogs/install.sh
-#sh services/gitea/install.sh  # Depende do postgres!
+#sh services/gitea/install.sh  # Needs POSTGRES
 #sh services/gitlab/install.sh
+
+# Documentação
+#sh services/wikijs/install.sh  # Needs POSTGRES
 
 # Gerenciamento do servidor
 #sh services/portainer/install.sh
