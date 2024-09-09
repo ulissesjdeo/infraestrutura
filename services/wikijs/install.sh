@@ -14,4 +14,4 @@ docker run \
   -e "DB_NAME=wikijs" \
   \
   --name wiki \
-  ghcr.io/requarks/wiki:2
+  requarks/wiki:2.5.303
