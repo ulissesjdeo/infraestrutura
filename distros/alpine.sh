@@ -8,7 +8,7 @@ setup-apkrepos -cf
 apk update
 apk upgrade
 
-# Instale os pacotes
+# Instale distros pacotes
 apk add git docker
 
 # Inicie o docker
