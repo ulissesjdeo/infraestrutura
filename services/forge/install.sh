@@ -5,7 +5,7 @@ mkdir /infra/forge
 docker run \
   -itd \
   --restart unless-stopped \
-  -p 25565:25565 \
+  -p 48255:25565 \
   \
   -e EULA=TRUE \
   -e TYPE=FORGE \

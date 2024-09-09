@@ -4,6 +4,7 @@ mkdir -p /infra/mariadb
 
 docker run \
   -d \
+  --restart unless-stopped \
   \
   --env MARIADB_ROOT_PASSWORD=my-secret-pw \
   \

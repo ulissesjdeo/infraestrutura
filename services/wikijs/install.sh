@@ -3,7 +3,7 @@ docker exec -it postgres psql -U postgres -c "CREATE DATABASE wikijs;"
 docker run \
   -d \
   --restart unless-stopped \
-  -p 8080:3000 \
+  -p 3080:3000 \
   \
   --link postgres:db \
   -e "DB_TYPE=postgres" \
@@ -13,5 +13,5 @@ docker run \
   -e "DB_PASS=mysecretpassword" \
   -e "DB_NAME=wikijs" \
   \
-  --name wiki \
+  --name wikijs \
   requarks/wiki:2.5.303

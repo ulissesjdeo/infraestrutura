@@ -3,20 +3,18 @@
 # https://docs.gitlab.com/ee/install/docker/backup_restore.html  # TODO: Implementar script
 # https://docs.gitlab.com/ee/install/docker/upgrade.html  # TODO: Implementar script
 
-export GITLAB=/infra/gitlab
-
-mkdir -p $GITLAB
+mkdir -p /infra/gitlab
 
 docker run \
   -d \
   --restart unless-stopped \
-  -p 443:443 \
-  -p 80:80 \
-  -p 22:22 \
+  -p 20443:443 \
+  -p 20080:80 \
+  -p 20022:22 \
   \
-  --volume $GITLAB/config:/etc/gitlab \
-  --volume $GITLAB/logs:/var/log/gitlab \
-  --volume $GITLAB/data:/var/opt/gitlab \
+  --volume /infra/gitlab/config:/etc/gitlab \
+  --volume /infra/gitlab/logs:/var/log/gitlab \
+  --volume /infra/gitlab/data:/var/opt/gitlab \
   \
   --env GITLAB_OMNIBUS_CONFIG="external_url 'http://192.168.15.14'; gitlab_rails['lfs_enabled'] = true;" \
   --hostname gitlab.example.com \
@@ -29,4 +27,4 @@ docker run \
 #docker logs -f gitlab
 
 # Ver senha do root
-#cat $GITLAB/config/initial_root_password
+#cat /infra/gitlab/config/initial_root_password
