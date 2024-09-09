@@ -21,7 +21,7 @@ docker run \
   --shm-size 256m \
   \
   --name gitlab \
-  gitlab/gitlab-ce:17.1.6-ce.0
+  gitlab/gitlab-ce:17.2.4-ce.0
 
 # Ver logs
 #docker logs -f gitlab
