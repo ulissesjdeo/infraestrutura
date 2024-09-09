@@ -17,4 +17,5 @@ echo 'Tire o comentário dos serviços que irão ser usados'
 #sh services/syncthing/install.sh
 
 # Jogos
+#sh services/forge/install.sh
 #sh services/papermc/install.sh
