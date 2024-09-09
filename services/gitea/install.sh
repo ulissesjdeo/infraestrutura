@@ -7,8 +7,8 @@ docker exec -it postgres psql -U postgres -c "CREATE DATABASE gitea;"
 docker run \
   -d \
   --restart unless-stopped \
-  -p 10080:3000 \
-  -p 10022:22 \
+  -p 10881:3000 \
+  -p 10023:22 \
   \
   --link postgres:db \
   -e USER_UID=1000 \
