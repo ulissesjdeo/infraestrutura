@@ -1,3 +1,7 @@
+# https://docs.requarks.io/install/docker
+
+until docker exec postgres pg_isready ; do sleep 2 ; done
+
 docker exec -it postgres psql -U postgres -c "CREATE DATABASE wikijs;"
 
 docker run \
