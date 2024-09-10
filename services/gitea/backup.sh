@@ -32,7 +32,7 @@ docker exec postgres pg_dump -U postgres gitea > gitea/PGDUMP.sql
 mv gitea/ "$TIMESTAMP"_gitea/
 
 # Empacotando
-tar czf "$TIMESTAMP"_gitea.tar.gz "$TIMESTAMP"_gitea/
+zip -r "$TIMESTAMP"_gitea.zip "$TIMESTAMP"_gitea/
 
 # Removendo pasta
 rm -r "$TIMESTAMP"_gitea/
