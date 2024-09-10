@@ -1,3 +1,6 @@
+# Faça a instalação do Alpine Standard
+setup-alpine
+
 # Habilite o repositório "community"
 vi /etc/apk/repositories
 
@@ -22,3 +25,6 @@ vi /etc/ssh/sshd_config
 
 # Reinicie o SSH
 rc-service sshd restart
+
+# Limpa MOTD
+rm /etc/motd
