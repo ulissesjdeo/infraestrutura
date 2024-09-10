@@ -33,3 +33,6 @@ mv gitea/ "$TIMESTAMP"_gitea/
 
 # Empacotando
 tar czf "$TIMESTAMP"_gitea.tar.gz "$TIMESTAMP"_gitea/
+
+# Removendo pasta
+rm -r "$TIMESTAMP"_gitea/
