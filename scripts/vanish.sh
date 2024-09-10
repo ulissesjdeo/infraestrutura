@@ -3,8 +3,6 @@ if [[ "$1" != "--yes-i-will-delete-everything" || "$2" != "--i-am-sure" ]]; then
     exit 1
 fi
 
-docker rm -vf $(docker ps -aq) 2> /dev/null
-
-docker rmi -f $(docker images -aq) 2> /dev/null
-
+docker rm -vf "$(docker ps -aq)" 2> /dev/null
+docker rmi -f "$(docker images -aq)" 2> /dev/null
 rm -rf /infra
