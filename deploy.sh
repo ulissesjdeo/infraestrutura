@@ -1,20 +1,22 @@
-echo 'Tire o comentário dos serviços que irão ser usados'
+echo Tire o comentário dos serviços que irão ser usados
 
-# Banco de dados
-#sh services/cloudbeaver/install.sh
-#sh services/postgres/install.sh
+# Bancos de dados
 #sh services/mariadb/install.sh
+#sh services/postgres/install.sh
+
+# Interfaces para bancos de dados
+#sh services/cloudbeaver/install.sh
 
 # Git
-#sh services/gogs/install.sh
 #sh services/gitea/install.sh  # Needs POSTGRES
 #sh services/gitlab/install.sh
-
-# Documentação
-#sh services/wikijs/install.sh  # Needs POSTGRES
+#sh services/gogs/install.sh
 
 # Gerenciamento do servidor
 #sh services/portainer/install.sh
+
+# Documentação
+#sh services/wikijs/install.sh  # Needs POSTGRES
 
 # Arquivos
 #sh services/syncthing/install.sh

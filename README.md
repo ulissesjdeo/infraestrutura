@@ -32,21 +32,51 @@ No tópico a seguir há a estrutura do projeto com a localização de cada ferra
 - `debian.sh`
 - `openwrt.sh`
 
-`scripts` - Contém utilitários gerais
+`scripts` Contém utilitários gerais
 
 - `git.sh` (configura o uso do git no sistema)
 - `usage.sh` (verifica o uso de: CPU, RAM, disco...)
 - `vanish.sh` (apaga todos os containers, volumes e imagens)
 
-`services` Serviços disponíveis
+`services` Serviços disponíveis e os recursos prontos para cada um
 
-- `cloudbeaver` Instalação
-- `forge` Instalação
-- `gitea` Instalação / Backup / Restore
-- `gitlab` Instalação
-- `gogs` Instalação
-- `mariadb` Instalação
-- `papermc` Instalação
-- `portainer` Instalação
-- `postgres` Instalação
-- `syncthing` Instalação
+- Bancos de dados
+  - `mariadb` (Instalação)
+  - `postgres` (Instalação)
+
+
+- Interfaces para bancos de dados
+  - `cloudbeaver` (Instalação)
+
+
+- Git
+  - `gitea` (Instalação / Backup / Restore)
+  - `gitlab` (Instalação)
+  - `gogs` (Instalação)
+
+
+- Gerenciamento do servidor
+  - `portainer` (Instalação)
+
+
+- Documentação
+  - `wikijs` (Instalação)
+
+
+- Arquivos
+  - `syncthing` (Instalação)
+
+
+- Jogos
+  - `forge` (Instalação)
+  - `papermc` (Instalação)
+
+## Utilização
+
+Para fazer o seu primeiro deploy basta editar o arquivo `deploy.sh` e remover os comentários das linhas dos serviços a serem utilizados.
+
+Se você preferir, você pode também fazer o deploy manualmente, suponha que você queira uma instância do Gitea, basta executar:
+
+````
+sh services/gitea/install.sh
+````
