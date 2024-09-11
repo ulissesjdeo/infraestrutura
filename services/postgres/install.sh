@@ -16,4 +16,4 @@ docker run \
   -e POSTGRES_PASSWORD=mysecretpassword \
   \
   --name postgres \
-  postgres:16.4-alpine3.20
+  postgres:16.4-bookworm

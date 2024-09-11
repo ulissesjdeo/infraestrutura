@@ -13,4 +13,4 @@ docker run \
   -v /infra/portainer:/data \
   \
   --name portainer \
-  portainer/portainer-ce:2.21.0
+  portainer/portainer-ce:2.21.1
