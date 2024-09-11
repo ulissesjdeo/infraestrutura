@@ -48,7 +48,6 @@ suportadas oficialmente
 
 - `alpine.sh`
 - `debian.sh`
-- `openwrt.sh`
 
 `scripts` Contém utilitários gerais
 
