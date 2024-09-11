@@ -11,3 +11,6 @@ apt-get dist-upgrade
 # Mude a porta do SSH do sistema para 48022
 nano /etc/ssh/sshd_config
 systemctl restart ssh
+
+# Instalar dependências
+apt-get -y intall unzip zip
