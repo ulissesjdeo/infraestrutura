@@ -17,19 +17,19 @@ FILENAME=$(basename "$BACKUP_FILE")
 docker cp gitea:"$BACKUP_FILE" /BACKUP/gitea/
 
 # Abrindo backup
-unzip -q "$FILENAME" -d gitea-dump 1> /dev/null
+unzip -q "$FILENAME" -d gitea-dump
 
 # Parando Gitea
 docker stop gitea
 
 # Aguardando postgres ficar pronto
-until docker exec "$POSTGRES_CONTAINER" pg_isready -q; do
+until docker exec postgres pg_isready -q; do
     echo "PostgreSQL is unavailable - sleeping"
     sleep 2
 done
 
 # pg_dump do gitea
-rm gitea-dump/gitea-db.sql
+rm -f gitea-dump/gitea-db.sql
 docker exec postgres pg_dump -U postgres -Fc -d gitea > gitea-dump/gitea-db.dump
 
 # Iniciando Gitea
