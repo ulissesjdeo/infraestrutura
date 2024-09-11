@@ -58,7 +58,6 @@ suportadas oficialmente
 `services` Serviços disponíveis e os recursos prontos para cada um
 
 - Bancos de dados
-  - `mariadb` (Instalação)
   - `postgres` (Instalação)
 
 
@@ -69,7 +68,6 @@ suportadas oficialmente
 - Git
   - `gitea` (Instalação / Backup / Restore)
   - `gitlab` (Instalação)
-  - `gogs` (Instalação)
 
 
 - Gerenciamento do servidor

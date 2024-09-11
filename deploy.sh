@@ -1,7 +1,6 @@
 echo Tire o comentário dos serviços que irão ser usados
 
 # Bancos de dados
-#sh services/mariadb/install.sh
 #sh services/postgres/install.sh
 
 # Interfaces para bancos de dados
@@ -10,7 +9,6 @@ echo Tire o comentário dos serviços que irão ser usados
 # Git
 #sh services/gitea/install.sh  # Needs POSTGRES
 #sh services/gitlab/install.sh
-#sh services/gogs/install.sh
 
 # Gerenciamento do servidor
 #sh services/portainer/install.sh
