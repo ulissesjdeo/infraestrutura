@@ -1,30 +1,24 @@
-# Faça a instalação do Alpine Standard
-setup-alpine
-
-# Habilite o repositório "community"
-vi /etc/apk/repositories
-
-# Selecione o melhor mirror
+# Selecionando o melhor mirror de pacotes
 setup-apkrepos -cf
 
-# Atualizando o sistema
+# Habilite o repositório "community" https://wiki.alpinelinux.org/wiki/Repositories
+vi /etc/apk/repositories
+
+# Atualize o sistema
 apk update
 apk upgrade
 
-# Instale distros pacotes
+# Instale as dependências
 apk add git docker
 
-# Inicie o docker
-service docker start
-
-# Adicione o docker ao startup
+# Ativando as dependências
 rc-update add docker default
 
-# Mude a porta do SSH do sistema para 48022
+# (opcional) Mude a porta do SSH do sistema para 48022
 vi /etc/ssh/sshd_config
 
-# Reinicie o SSH
-rc-service sshd restart
-
-# Limpa MOTD
+# (opcional) Remove MOTD
 rm /etc/motd
+
+# Reinicie
+reboot
