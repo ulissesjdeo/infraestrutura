@@ -28,10 +28,9 @@ unzip -q "$FILENAME"
 rm -rf /infra/gitea/gitea/*
 cp -r gitea-dump/data/* /infra/gitea/gitea/
 
-# FIXME: REVISAR!!!
 # Restaurando repositórios
-#docker exec gitea rm -rf /data/git/repositories/
-#docker exec gitea cp -r /DUMP/repos/ /data/git/repositories/
+rm -rf /infra/gitea/git/repositories/*
+cp -r gitea-dump/repos/* /infra/gitea/git/repositories/
 
 # Aguardando postgres ficar pronto
 until docker exec postgres pg_isready -q; do
