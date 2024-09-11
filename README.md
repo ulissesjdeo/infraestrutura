@@ -7,6 +7,7 @@ O projeto consiste num conjunto de utilitários desenvolvidos em shell script pa
 - [Conceito](#conceito)
 - [Primeiros passos](#primeiros-passos)
 - [Organização](#organização)
+- [Utilização](#utilização)
 
 ## Conceito
 
