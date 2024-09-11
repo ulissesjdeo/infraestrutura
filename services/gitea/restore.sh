@@ -1,5 +1,3 @@
-set -euo pipefail
-
 if [ $# -eq 0 ]; then
     echo "Error: No file specified" >&2
     echo "Usage: $0 <FILENAME>" >&2

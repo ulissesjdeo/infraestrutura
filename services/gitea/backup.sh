@@ -1,6 +1,3 @@
-# Parando script se algo der errado
-set -euo pipefail
-
 # Setup
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 mkdir -p /BACKUP/gitea 2> /dev/null
