@@ -143,7 +143,6 @@ são considerados "feature-complete" e basta utilizá-los.
 * `gitlab` - Backup / Restore
 * `papermc` - Fazer funcionar / Backup / Restore
 * `portainer` - Backup / Restore
-* `syncthing` - Configuração
 * `wikijs` - Backup / Restore
 
 Serviços para serem implementados:
