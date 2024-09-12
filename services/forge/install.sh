@@ -1,6 +1,6 @@
 # https://docker-minecraft-server.readthedocs.io/
 
-mkdir /infra/forge
+mkdir -p /infra/forge
 
 docker run \
   -itd \
