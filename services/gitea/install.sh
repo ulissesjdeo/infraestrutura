@@ -15,7 +15,7 @@ docker run \
   -e USER_UID=1000 \
   -e USER_GID=1000 \
   -e GITEA__database__NAME=gitea \
-  -e GITEA__database__HOST=172.18.0.1 \
+  -e GITEA__database__HOST=172.18.0.2 \
   -e GITEA__database__USER=postgres \
   -e GITEA__database__DB_TYPE=postgres \
   -e GITEA__database__PASSWD=mysecretpassword \
