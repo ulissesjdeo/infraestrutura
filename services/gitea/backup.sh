@@ -4,7 +4,7 @@ mkdir -p /BACKUP/gitea 2> /dev/null
 cd /BACKUP/gitea || exit
 
 # Dump dos dados
-docker exec -u 1000 -it -w /tmp gitea bash -c '/usr/local/bin/gitea dump -c /data/gitea/conf/app.ini'
+docker exec -u 1000 -it -w /tmp gitea bash -c '/usr/local/bin/gitea dump --skip-log --skip-db -c /data/gitea/conf/app.ini'
 
 # Path do dump no container
 BACKUP_FILE=$(docker exec gitea bash -c "ls -t /tmp/gitea-dump-*.zip | head -1")
@@ -26,7 +26,6 @@ until docker exec postgres pg_isready -q; do
 done
 
 # pg_dump do gitea
-rm -f gitea-dump/gitea-db.sql
 docker exec postgres pg_dump -U postgres -Fc -d gitea > gitea-dump/gitea-db.dump
 
 # Iniciando Gitea
