@@ -13,7 +13,7 @@ docker run \
   --restart unless-stopped \
   \
   --network postgres \
-  --ip 172.18.0.1 \
+  --ip 172.18.0.2 \
   \
   -v /infra/postgres:/var/lib/postgresql/data \
   \
