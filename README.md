@@ -78,6 +78,10 @@ suportadas oficialmente
   - `wikijs` (Instalação)
 
 
+- Utilitários
+  - `stirlingpdf` (Instalação)
+
+
 - Arquivos
   - `syncthing` (Instalação)
 
