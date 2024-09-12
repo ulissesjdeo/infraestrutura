@@ -12,11 +12,10 @@ docker run \
   -p 10881:3000 \
   -p 10023:22 \
   \
-  --link postgres:db \
   -e USER_UID=1000 \
   -e USER_GID=1000 \
   -e GITEA__database__NAME=gitea \
-  -e GITEA__database__HOST=db:5432 \
+  -e GITEA__database__HOST=172.18.0.1 \
   -e GITEA__database__USER=postgres \
   -e GITEA__database__DB_TYPE=postgres \
   -e GITEA__database__PASSWD=mysecretpassword \
@@ -27,3 +26,5 @@ docker run \
   \
   --name gitea \
   gitea/gitea:1.22.2
+
+docker network connect postgres gitea

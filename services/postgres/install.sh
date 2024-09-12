@@ -6,9 +6,14 @@
 
 mkdir -p /infra/postgres
 
+docker network create --subnet=172.18.0.0/16 postgres
+
 docker run \
   -itd \
   --restart unless-stopped \
+  \
+  --network postgres \
+  --ip 172.18.0.1 \
   \
   -v /infra/postgres:/var/lib/postgresql/data \
   \
