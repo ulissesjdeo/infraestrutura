@@ -8,6 +8,7 @@ O projeto consiste num conjunto de utilitários desenvolvidos em shell script pa
 - [Primeiros passos](#primeiros-passos)
 - [Organização](#organização)
 - [Utilização](#utilização)
+- [TODO](#todo)
 
 ## Conceito
 
@@ -127,3 +128,21 @@ estar apto para restaurar o backup, então execute:
 sh services/gitea/install.sh
 sh services/gitea/restore.sh /BACKUP/gitea/<BACKUP_IMPORTADO>.zip
 ```
+
+## TODO
+
+Aqui estão listados os itens a serem implementados, e, principalmente, os scripts
+que faltam para cada serviços em específico, os serviços que não estão listados
+são considerados "feature-complete" e basta utilizá-los.
+
+* `cloudbeaver` - Backup / Restore
+* `forge` - Fazer funcionar / Backup / Restore
+* `gitlab` - Backup / Restore
+* `papermc` - Fazer funcionar / Backup / Restore
+* `portainer` - Backup / Restore
+* `syncthing` - Configuração
+* `wikijs` - Backup / Restore
+
+Serviços para serem implementados:
+
+* `nginx` - Instalação / Backup / Restore / Configuração
