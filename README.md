@@ -1,6 +1,9 @@
 # Infraestrutura
 
-O projeto consiste num conjunto de utilitários desenvolvidos em shell script para facilitar o gerenciamento de um infraestrutura complexa em um ambiente de containers, tornando trivial o seu gerenciamento
+O projeto consiste num conjunto de utilitários desenvolvidos em
+shell script para facilitar o gerenciamento de uma infraestrutura
+complexa em um ambiente de containers, tornando trivial o seu
+gerenciamento
 
 ## Sumário
 
