@@ -13,7 +13,7 @@ echo "=== EMPACOTANDO"
 tar cf "$FILENAME" /infra/syncthing/config/
 
 echo "=== COMPACTANDO"
-xz - 9 "$FILENAME"
+xz -9 "$FILENAME"
 
 echo "=== INICIANDO SYNCTHING"
 docker start syncthing 1> /dev/null
