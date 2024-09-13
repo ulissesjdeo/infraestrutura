@@ -1,3 +1,8 @@
+if ! docker ps --format '{{.Names}}' | grep -q '^gitea$'; then
+    echo "=== INICIE O GITEA ANTES DE FAZER O BACKUP"
+    exit 1
+fi
+
 echo "=== INICIANDO BACKUP"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
