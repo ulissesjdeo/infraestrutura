@@ -14,7 +14,7 @@ FILENAME=$(basename "$BACKUP_FILE")
 docker cp gitea:"$BACKUP_FILE" /BACKUP/gitea/ 1> /dev/null
 
 echo "=== PARANDO GITEA"
-docker stop gitea
+docker stop gitea 1> /dev/null
 
 echo "=== DESCOMPACTANDO DUMP"
 unzip -q "$FILENAME" -d gitea-dump
@@ -27,7 +27,7 @@ echo "=== FAZENDO DUMP DO BANCO"
 docker exec postgres pg_dump -U postgres -Fc -d gitea > gitea-dump/gitea-db.dump
 
 echo "=== INICIANDO GITEA"
-docker start gitea
+docker start gitea 1> /dev/null
 
 echo "=== LIMPANDO E COMPACTANDO"
 rm gitea-dump/app.ini
