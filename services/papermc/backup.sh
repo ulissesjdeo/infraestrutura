@@ -17,6 +17,7 @@ rm -rf /infra/papermc/help.yml
 rm -rf /infra/papermc/libraries/
 rm -rf /infra/papermc/logs/
 rm -rf /infra/papermc/permissions.yml
+rm -rf /infra/papermc/plugins/.paper-remapped/
 rm -rf /infra/papermc/spigot.yml
 rm -rf /infra/papermc/version_history.json
 
