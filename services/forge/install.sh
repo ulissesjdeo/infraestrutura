@@ -9,8 +9,8 @@ docker run \
   \
   -e EULA=TRUE \
   -e TYPE=FORGE \
-  -e VERSION=1.12.2 \
-  -e FORGEVERSION=14.23.5.2860 \
+  -e VERSION=1.16.5 \
+  -e FORGEVERSION=36.2.42 \
   \
   -v /infra/forge:/data \
   \
