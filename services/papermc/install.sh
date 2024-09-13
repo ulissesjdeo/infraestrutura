@@ -13,4 +13,4 @@ docker run \
   \
   -v /infra/papermc:/data:rw \
   --name papermc \
-  marctv/minecraft-papermc-server:1.21.1-69
+  marctv/minecraft-papermc-server:1.21.1-56
