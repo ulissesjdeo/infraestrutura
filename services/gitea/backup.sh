@@ -24,9 +24,8 @@ docker stop gitea 1> /dev/null
 echo "=== DESCOMPACTANDO DUMP"
 unzip -q "$FILENAME" -d gitea-dump
 
-until docker exec postgres pg_isready -q; do
-    echo "=== AGUARDANDO POSTGRES"; sleep 2
-done
+# Aguardando Postgres
+until docker exec postgres pg_isready -q; do sleep 5; done
 
 echo "=== FAZENDO DUMP DO BANCO"
 docker exec postgres pg_dump -U postgres -Fc -d gitea > gitea-dump/gitea-db.dump
