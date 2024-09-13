@@ -11,7 +11,8 @@ git config --system receive.fsckObjects true
 git config --system receive.denyNonFastForwards false
 
 # Line endings
-git config --global core.autocrlf true
+git config --global core.eol lf
+git config --global core.autocrlf input
 
 # Identification
 git config --global user.name 'Server'
