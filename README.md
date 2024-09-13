@@ -88,7 +88,7 @@ suportadas oficialmente
 
 
 - Arquivos
-  - `syncthing` (Instalação)
+  - `syncthing` (Instalação / Backup)
 
 
 - Jogos
@@ -143,7 +143,7 @@ são considerados "feature-complete" e basta utilizá-los.
 * `grafana` - Backup / Restore
 * `papermc` - Restore
 * `portainer` - Backup / Restore
-* `syncthing` - Backup / Restore
+* `syncthing` - Restore
 * `wikijs` - Backup / Restore
 
 Serviços para serem implementados:
