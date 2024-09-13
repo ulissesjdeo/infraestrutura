@@ -138,6 +138,7 @@ são considerados "feature-complete" e basta utilizá-los.
 * `gitlab` - Backup / Restore
 * `grafana` - Backup / Restore
 * `portainer` - Backup / Restore
+* `syncthing` - Backup / Restore
 * `wikijs` - Backup / Restore
 
 Serviços para serem implementados:
