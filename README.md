@@ -1,9 +1,8 @@
 # Infraestrutura
 
-O projeto consiste num conjunto de utilitários desenvolvidos em
-shell script para facilitar o gerenciamento de uma infraestrutura
-complexa em um ambiente de containers, tornando trivial o seu
-gerenciamento
+Este projeto consiste em um conjunto de utilitários em shell
+script para facilitar o gerenciamento de uma infraestrutura
+complexa em um ambiente de containers.
 
 ## Sumário
 
@@ -15,92 +14,55 @@ gerenciamento
 
 ## Conceito
 
-A ideia é montar uma infraestrutura inteiramente em docker
-usufruindo de suas funcionalidades para que seus serviços estejam
-isolados, rápidos, seguros e sempre atualizados. Um dos pontos
-principais que o projeto dá atenção é a facilidade para fazer
-backup e restaurá-los, os scripts de backup/restore são montados
-partido do princípio que assim que você tiver seu backup salvo
-em outra máquina, seu servidor irá pegar fogo e perder tudo que
-há lá, mas com o conjunto de utilitários aqui presente, em
-pouquíssimo tempo você irá conseguir criar um servidor novo
-e restaurar todos os dados.
+A ideia é que toda a infraestrutura seja construída em
+containers, fazendo com que as aplicações fiquem isoladas o
+máximo possível.
+
+Com toda a camada de infraestrutura está abstraída nos
+containers, torna-se trivial configurar um servidor novo e
+restaurar todos os backups. Os scripts de backup são
+otimizados para entregarem integridade, desempenho e baixo
+custo de armazenamento.
 
 ## Primeiros passos
 
-Escolha o sistema operacional de sua preferência para criar
-sua infraestrutura, se você estiver configurando um ambiente novo,
-indica-se usar algumas das distribuições com suporte oficial,
-elas podem ser encontradas no diretório `scripts`, cada arquivo
-`.sh` indica as instruções de pós-instalação de cada sistema.
-
-Após ter o ambiente com Docker e as dependências instaladas
-e configuradas conforme o parágrafo anterior, faça sua cópia do
-repositório com todos os scripts
+Escolha a distribuição de sua preferência (desde que tenha
+suporte a Docker) e então clone o repositório para ter acesso
+aos scripts:
 
 ```shell
 git clone --depth=1 https://github.com/ulissesjdeo/infraestrutura.git
 ```
 
-No tópico a seguir há a estrutura do projeto com a localização de
-cada ferramenta e suas funcionalidades
-
 ## Organização
 
-`distros` Contém as instruções de pós-instalação das distribuições
-suportadas oficialmente
+Aqui está indicada a estrutura de arquivos do repositório bem como
+as funções de cada script e os recursos de cada serviço.
+
+`distros` (Contém as instruções recomendadas de pós-instalação
+de algumas das distribuições mais populares)
 
 - `alpine.sh`
 - `debian.sh`
 
-`scripts` Contém utilitários gerais
+`scripts` (Contém utilitários gerais)
 
-- `git.sh` (configura o uso do git no sistema)
-- `usage.sh` (verifica o uso de: CPU, RAM, disco...)
-- `vanish.sh` (apaga todos os containers, volumes e imagens)
+- `git.sh` (Configura o git do host)
+- `usage.sh` (Verifica os uso de recursos)
+- `vanish.sh` (Reset do ambiente Docker)
 
-`services` Serviços disponíveis e os recursos prontos para cada um
+`services` (Contém os serviços e aplicações suportadas)
 
-- Bancos de dados
-  - `postgres` (Instalação)
+  - [PostgreSQL](https://github.com/postgres/postgres)
+  - [Gitea](https://github.com/go-gitea/gitea)
+  - [Portainer](https://github.com/portainer/portainer)
+  - [Syncthing](https://github.com/syncthing/syncthing)
+  - [Paper](https://github.com/PaperMC/Paper)
 
-
-- Interfaces para bancos de dados
-  - `cloudbeaver` (Instalação)
-
-
-- Git
-  - `gitea` (Instalação / Backup / Restore)
-  - `gitlab` (Instalação)
-
-
-- Gerenciamento do servidor
-  - `grafana` (Instalação)
-  - `portainer` (Instalação)
-
-
-- Documentação
-  - `wikijs` (Instalação)
-
-
-- Utilitários
-  - `stirlingpdf` (Instalação)
-
-
-- Arquivos
-  - `syncthing` (Instalação / Backup)
-
-
-- Jogos
-  - `papermc` (Instalação / Backup)
 
 ## Utilização
 
-Para fazer o seu primeiro deploy basta editar o arquivo `deploy.sh`
-e remover os comentários das linhas dos serviços a serem utilizados.
-
-Se você preferir, você pode também fazer o deploy manualmente, suponha
-que você queira uma instância do Gitea, basta executar:
+Suponhamos que você queira uma instância do Gitea, basta executar:
 
 ```shell
 sh services/gitea/install.sh
@@ -108,16 +70,17 @@ sh services/gitea/install.sh
 
 O mesmo pode ser feito para os outros serviços, seguindo com o caso
 de você já ter sua instância do Gitea operacional ou já tinha uma
-instância com imagem compatível, para fazer o backup de todos os dados
-do Gitea e o seu banco basta executar:
+instância com imagem compatível, para fazer o backup completo do Gitea
+e o seu banco basta executar:
 
 ```shell
 sh services/gitea/backup.sh
 ```
 
 No momento, por padrão, os dados do servidor ficam em `/infra/` e o
-backups ficam em `/BACKUP/`, então nosso último backup está em `/BACKUP/gitea/`,
-caso queira restaurar os dados no mesmo servidor, basta executar:
+backups ficam em `/BACKUP/`, então nosso último backup está em
+`/BACKUP/gitea/`, caso queira restaurar os dados no mesmo servidor,
+basta executar:
 
 ```shell
 sh services/gitea/restore.sh /BACKUP/gitea/<ÚLTIMO_BACKUP>.zip
@@ -134,18 +97,13 @@ sh services/gitea/restore.sh /BACKUP/gitea/<BACKUP_IMPORTADO>.zip
 
 ## TODO
 
+Aqui estão os recursos a serem implementados:
+
 Aqui estão listados os itens a serem implementados, e, principalmente, os scripts
 que faltam para cada serviços em específico, os serviços que não estão listados
 são considerados "feature-complete" e basta utilizá-los.
 
-* `cloudbeaver` - Backup / Restore
-* `gitlab` - Backup / Restore
-* `grafana` - Backup / Restore
 * `papermc` - Restore
 * `portainer` - Backup / Restore
 * `syncthing` - Restore
-* `wikijs` - Backup / Restore
-
-Serviços para serem implementados:
-
-* `nginx` - Instalação / Backup / Restore / Configuração
+* `nginx` - Backup / Restore / Configuração
