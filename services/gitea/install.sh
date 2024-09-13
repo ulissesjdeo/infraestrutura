@@ -1,11 +1,14 @@
 # https://docs.gitea.com/installation/install-with-docker
 
+echo "=== CRIANDO PASTAS"
 mkdir -p /infra/gitea
 
-until docker exec postgres pg_isready ; do sleep 2 ; done
+until docker exec postgres pg_isready -q; do sleep 5; done
 
-docker exec -it postgres psql -U postgres -c "CREATE DATABASE gitea;"
+echo "=== CRIANDO BANCO DE DADOS"
+docker exec -it postgres psql -U postgres -c "CREATE DATABASE gitea;" 2> /dev/null
 
+echo "=== CRIANDO CONTAINER"
 docker run \
   -d \
   --restart unless-stopped \
@@ -25,6 +28,7 @@ docker run \
   -v /etc/localtime:/etc/localtime:ro \
   \
   --name gitea \
-  gitea/gitea:1.22.2
+  gitea/gitea:1.22.2 1> /dev/null
 
-docker network connect postgres gitea
+echo "=== CONECTANDO CONTAINER À REDE DO BANCO"
+docker network connect postgres gitea 1> /dev/null
