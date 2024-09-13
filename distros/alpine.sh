@@ -1,24 +1,14 @@
-# Selecionando o melhor mirror de pacotes
+# Escolhendo mirror
 setup-apkrepos -cf
 
-# Habilite o repositório "community" https://wiki.alpinelinux.org/wiki/Repositories
+# Habilitar "community" https://wiki.alpinelinux.org/wiki/Repositories
 vi /etc/apk/repositories
 
-# Atualize o sistema
+# Updates e pacotes
 apk update
 apk upgrade
-
-# Instale as dependências
 apk add git docker
 
-# Ativando as dependências
+# Habilitando Docker
+service docker start
 rc-update add docker default
-
-# (opcional) Mude a porta do SSH do sistema para 48022
-vi /etc/ssh/sshd_config
-
-# (opcional) Remove MOTD
-rm /etc/motd
-
-# Reinicie
-reboot
