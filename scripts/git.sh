@@ -1,6 +1,9 @@
 # Default branch
 git config --global init.defaultBranch main
 
+# Rebase
+git config pull.rebase false
+
 # Checksums
 git config --system receive.fsckObjects true
 
