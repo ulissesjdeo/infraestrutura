@@ -1,0 +1,289 @@
+Subject: [PATCH] refactoring
+---
+Index: services/gitea/backup.sh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/services/gitea/backup.sh b/services/gitea/backup.sh
+--- a/services/gitea/backup.sh	(revision 63e1112e04722f6abb1dcbe6acec94668be39147)
++++ b/services/gitea/backup.sh	(date 1726258786969)
+@@ -1,39 +1,37 @@
+-if ! docker ps --format '{{.Names}}' | grep -q '^gitea$'; then
+-    echo "=== INICIE O GITEA ANTES DE FAZER O BACKUP"
+-    exit 1
+-fi
++if ! source config/gitea.sh; then echo "Configure as variáveis em config/gitea.sh"; exit 1; fi
++if [[ -z "$GITEA_DB_NOME" ]]; then echo "Defina \$GITEA_DB_NOME"; exit 1; fi
++if [[ -z "$GITEA_DIRETORIO" ]]; then echo "Defina \$GITEA_DIRETORIO"; exit 1; fi
++if [[ -z "$GITEA_DOCKER_NOME" ]]; then echo "Defina \$GITEA_DOCKER_NOME"; exit 1; fi
++if [[ -z "$GITEA_DIRETORIO_BACKUPS" ]]; then echo "Defina \$GITEA_DIRETORIO_BACKUPS"; exit 1; fi
+ 
+-echo "=== INICIANDO BACKUP"
+-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
++if ! docker ps --format '{{.Names}}' | grep -q "^$GITEA_DOCKER_NOME$"; then echo "=== GITEA - INICIE O CONTAINER ANTES DE FAZER O BACKUP"; exit 1; fi
+ 
+-echo "=== CRIANDO PASTAS"
+-mkdir -p /BACKUP/gitea 2> /dev/null
+-cd /BACKUP/gitea || exit
++echo "=== GITEA - INICIANDO BACKUP"
++TIMESTAMP=$(date +%d-%m-%Y_%H-%M)
++mkdir -p "$GITEA_DIRETORIO_BACKUPS" 2> /dev/null
++cd "$GITEA_DIRETORIO_BACKUPS" || exit
+ 
+-echo "=== FAZENDO DUMP (SEM BANCO/LOGS)"
+-docker exec -u 1000 -it -w /tmp gitea bash -c '/usr/local/bin/gitea dump --skip-log --skip-db --quiet -c /data/gitea/conf/app.ini'
++echo "=== GITEA - FAZENDO DUMP"
++docker exec -u 1000 -it -w /tmp "$GITEA_DOCKER_NOME" bash -c '/usr/local/bin/gitea dump --skip-log --skip-db --quiet -c /data/gitea/conf/app.ini'
+ 
+-echo "=== COPIANDO DUMP"
+-BACKUP_FILE=$(docker exec gitea bash -c "ls -t /tmp/gitea-dump-*.zip | head -1")
++echo "=== GITEA - COPIANDO DUMP"
++BACKUP_FILE=$(docker exec "$GITEA_DOCKER_NOME" bash -c "ls -t /tmp/gitea-dump-*.zip | head -1")
+ FILENAME=$(basename "$BACKUP_FILE")
+-docker cp gitea:"$BACKUP_FILE" /BACKUP/gitea/ 1> /dev/null
+-
+-echo "=== PARANDO GITEA"
+-docker stop gitea 1> /dev/null
+-
+-echo "=== DESCOMPACTANDO DUMP"
++docker cp "$GITEA_DOCKER_NOME":"$BACKUP_FILE" "$GITEA_DIRETORIO_BACKUPS" 1> /dev/null
+ unzip -q "$FILENAME" -d gitea-dump
+-
+-# Aguardando Postgres
+-until docker exec postgres pg_isready -q; do sleep 5; done
+-
+-echo "=== FAZENDO DUMP DO BANCO"
+-docker exec postgres pg_dump -U postgres -Fc -d gitea > gitea-dump/gitea-db.dump
+-
+-echo "=== INICIANDO GITEA"
+-docker start gitea 1> /dev/null
+-
+-echo "=== LIMPANDO E COMPACTANDO"
+ rm gitea-dump/app.ini
++
++echo "=== GITEA - PARANDO CONTAINER"
++docker stop "$GITEA_DOCKER_NOME" 1> /dev/null
++
++until docker exec postgres pg_isready -q; do sleep 5; done
++
++echo "=== GITEA - FAZENDO DUMP DO BANCO"
++docker exec postgres pg_dump -U postgres -Fc -d "$GITEA_DB_NOME" > gitea-dump/gitea-db.dump
++
++echo "=== GITEA - INICIANDO CONTAINER"
++docker start "$GITEA_DOCKER_NOME" 1> /dev/null
++
++echo "=== GITEA - LIMPANDO E COMPACTANDO"
+ zip -r -q gitea-dump-"$TIMESTAMP".zip gitea-dump/
+ rm -rf gitea-dump/ "$FILENAME"
+Index: services/gitea/install.sh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/services/gitea/install.sh b/services/gitea/install.sh
+--- a/services/gitea/install.sh	(revision 63e1112e04722f6abb1dcbe6acec94668be39147)
++++ b/services/gitea/install.sh	(date 1726255889893)
+@@ -1,14 +1,17 @@
+-# https://docs.gitea.com/installation/install-with-docker
++if ! source config/gitea.sh; then echo "Configure as variáveis em config/gitea.sh"; exit 1; fi
++if [[ -z "$GITEA_DB_NOME" ]]; then echo "Defina \$GITEA_DB_NOME"; exit 1; fi
++if [[ -z "$GITEA_DIRETORIO" ]]; then echo "Defina \$GITEA_DIRETORIO"; exit 1; fi
++if [[ -z "$GITEA_DOCKER_NOME" ]]; then echo "Defina \$GITEA_DOCKER_NOME"; exit 1; fi
+ 
+-echo "=== CRIANDO PASTAS"
+-mkdir -p /infra/gitea
++echo "=== GITEA - CRIANDO DIRETÓRIO"
++mkdir -p "$GITEA_DIRETORIO"
+ 
+-until docker exec postgres pg_isready -q; do sleep 5; done
++until docker exec postgres pg_isready -q; do sleep 3; done
+ 
+-echo "=== CRIANDO BANCO DE DADOS"
+-docker exec -it postgres psql -U postgres -c "CREATE DATABASE gitea;" 2> /dev/null
++echo "=== GITEA - CRIANDO BANCO DE DADOS"
++docker exec -it postgres psql -U postgres -c "CREATE DATABASE $GITEA_DB_NOME;" 2> /dev/null
+ 
+-echo "=== CRIANDO CONTAINER"
++echo "=== GITEA - CRIANDO CONTAINER"
+ docker run \
+   -d \
+   --restart unless-stopped \
+@@ -28,8 +31,8 @@
+   -v /etc/timezone:/etc/timezone:ro \
+   -v /etc/localtime:/etc/localtime:ro \
+   \
+-  --name gitea \
++  --name "$GITEA_DOCKER_NOME" \
+   gitea/gitea:1.22.2 1> /dev/null
+ 
+-echo "=== CONECTANDO CONTAINER À REDE DO BANCO"
++echo "=== GITEA - SE CONECTANDO À REDE DO BANCO"
+ docker network connect postgres gitea 1> /dev/null
+Index: services/gitea/restore.sh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/services/gitea/restore.sh b/services/gitea/restore.sh
+--- a/services/gitea/restore.sh	(revision 63e1112e04722f6abb1dcbe6acec94668be39147)
++++ b/services/gitea/restore.sh	(date 1726258644906)
+@@ -1,22 +1,8 @@
+ # FIXME: Refactoring
+ 
+-if [ $# -eq 0 ]; then
+-    echo "Error: No file specified" >&2
+-    echo "Usage: $0 <FILENAME>" >&2
+-    exit 1
+-fi
+-
++if [ $# -eq 0 ]; then echo "Usage: $0 <FILENAME>" >&2; exit 1; fi
+ FILENAME="$1"
+-
+-if [ ! -f "$FILENAME" ]; then
+-    echo "Error: File '$FILENAME' not found" >&2
+-    exit 1
+-fi
+-
+-if ! unzip -t "$FILENAME" > /dev/null 2>&1; then
+-    echo "Error: '$FILENAME' is not a valid ZIP file" >&2
+-    exit 1
+-fi
++if [ ! -f "$FILENAME" ]; then echo "Error: File '$FILENAME' not found" >&2; exit 1; fi
+ 
+ # Parando container
+ docker stop gitea
+@@ -39,8 +25,7 @@
+ done
+ 
+ # Restaurando banco
+-docker exec -it postgres psql -U postgres -c "DROP DATABASE gitea;"
+-docker exec -it postgres psql -U postgres -c "CREATE DATABASE gitea;"
++docker exec -it postgres psql -U postgres -c "DROP DATABASE IF EXISTS gitea; CREATE DATABASE gitea;"
+ docker exec -i postgres pg_restore -U postgres -v -d gitea < gitea-dump/gitea-db.dump
+ 
+ # Iniciando gitea
+Index: config/gitea.sh.example
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/gitea.sh.example b/config/gitea.sh.example
+new file mode 100644
+--- /dev/null	(date 1726256262568)
++++ b/config/gitea.sh.example	(date 1726256262568)
+@@ -0,0 +1,11 @@
++# Caminho absoluto dos dados
++export GITEA_DIRETORIO='/infra/gitea'
++
++# Caminho absoluto dos backups
++export GITEA_DIRETORIO_BACKUPS='/BACKUP/gitea'
++
++# Nome do banco de dados
++export GITEA_DB_NOME='gitea'
++
++# Nome do container
++export GITEA_DOCKER_NOME='gitea'
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+--- a/.gitignore	(revision 63e1112e04722f6abb1dcbe6acec94668be39147)
++++ b/.gitignore	(date 1726255172778)
+@@ -1,1 +1,2 @@
++config/*.sh
+ .idea/
+Index: README.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/README.md b/README.md
+--- a/README.md	(revision 63e1112e04722f6abb1dcbe6acec94668be39147)
++++ b/README.md	(date 1726254991564)
+@@ -53,12 +53,12 @@
+ 
+ `services` (Contém os serviços e aplicações suportadas)
+ 
+-  - [PostgreSQL](https://github.com/postgres/postgres)
+   - [Gitea](https://github.com/go-gitea/gitea)
++  - [nginx](https://github.com/nginx/nginx)
++  - [Paper](https://github.com/PaperMC/Paper)
+   - [Portainer](https://github.com/portainer/portainer)
++  - [PostgreSQL](https://github.com/postgres/postgres)
+   - [Syncthing](https://github.com/syncthing/syncthing)
+-  - [Paper](https://github.com/PaperMC/Paper)
+-
+ 
+ ## Utilização
+ 
+@@ -99,11 +99,9 @@
+ 
+ Aqui estão os recursos a serem implementados:
+ 
+-Aqui estão listados os itens a serem implementados, e, principalmente, os scripts
+-que faltam para cada serviços em específico, os serviços que não estão listados
+-são considerados "feature-complete" e basta utilizá-los.
+-
+-* `papermc` - Restore
+-* `portainer` - Backup / Restore
+-* `syncthing` - Restore
+-* `nginx` - Backup / Restore / Configuração
++* `Gitea` Instalação / Backup / Restore
++* `nginx` Instalação / Backup / Restore
++* `Paper` Instalação / Backup / Restore
++* `Portainer` Instalação / Backup / Restore
++* `PostgreSQL` Instalação / Backup / Restore
++* `Syncthing` Instalação / Backup / Restore
+Index: nginx.conf
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/nginx.conf b/nginx.conf
+new file mode 100644
+--- /dev/null	(date 1726259249649)
++++ b/nginx.conf	(date 1726259249649)
+@@ -0,0 +1,30 @@
++server {
++	autoindex off;
++
++	# Public
++	location /public {
++		alias "/home/u/Public/";
++		autoindex on;
++	}
++
++	# Django
++	location /django/ {
++		proxy_pass http://192.168.15.2:8484;
++	}
++
++	# Pi-Hole
++	location ~ \.php$ {
++		root /var/www/html;
++		include fastcgi_params;
++		fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
++		fastcgi_pass unix:/run/php/php8.2-fpm.sock;
++		fastcgi_param FQDN true;
++	}
++	location /*.js {
++		index pihole/index.js;
++	}
++	location / {
++		root /var/www/html;
++		index index.html index.php;
++	}
++}
+diff --git a/config/papermc.sh.example b/config/papermc.sh.example
+new file mode 100644
+diff --git a/config/nginx.sh.example b/config/nginx.sh.example
+new file mode 100644
+diff --git a/config/postgres.sh.example b/config/postgres.sh.example
+new file mode 100644
+diff --git a/config/portainer.sh.example b/config/portainer.sh.example
+new file mode 100644
+diff --git a/config/syncthing.sh.example b/config/syncthing.sh.example
+new file mode 100644
