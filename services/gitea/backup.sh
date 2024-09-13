@@ -8,13 +8,13 @@ cd /BACKUP/gitea || exit
 echo "=== FAZENDO DUMP (SEM BANCO/LOGS)"
 docker exec -u 1000 -it -w /tmp gitea bash -c '/usr/local/bin/gitea dump --skip-log --skip-db --quiet -c /data/gitea/conf/app.ini'
 
-echo "=== PARANDO GITEA"
-docker stop gitea
-
 echo "=== COPIANDO DUMP"
 BACKUP_FILE=$(docker exec gitea bash -c "ls -t /tmp/gitea-dump-*.zip | head -1")
 FILENAME=$(basename "$BACKUP_FILE")
 docker cp gitea:"$BACKUP_FILE" /BACKUP/gitea/
+
+echo "=== PARANDO GITEA"
+docker stop gitea
 
 echo "=== DESCOMPACTANDO DUMP"
 unzip -q "$FILENAME" -d gitea-dump
