@@ -90,6 +90,10 @@ suportadas oficialmente
 - Arquivos
   - `syncthing` (Instalação)
 
+
+- Jogos
+  - `papermc` (Instalação / Backup)
+
 ## Utilização
 
 Para fazer o seu primeiro deploy basta editar o arquivo `deploy.sh`
@@ -137,6 +141,7 @@ são considerados "feature-complete" e basta utilizá-los.
 * `cloudbeaver` - Backup / Restore
 * `gitlab` - Backup / Restore
 * `grafana` - Backup / Restore
+* `papermc` - Restore
 * `portainer` - Backup / Restore
 * `syncthing` - Backup / Restore
 * `wikijs` - Backup / Restore
