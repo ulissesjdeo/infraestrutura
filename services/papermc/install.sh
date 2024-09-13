@@ -12,7 +12,7 @@ docker run \
   \
   -e PUID=0 \
   -e PGID=0 \
-  -e MEMORYSIZE="4G" \
+  -e JAVAFLAGS='-Xms128M -Xmx5G' \
   -e PAPERMC_FLAGS='' \
   \
   -v /infra/papermc:/data:rw \
