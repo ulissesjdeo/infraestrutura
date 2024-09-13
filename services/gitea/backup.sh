@@ -11,7 +11,7 @@ docker exec -u 1000 -it -w /tmp gitea bash -c '/usr/local/bin/gitea dump --skip-
 echo "=== COPIANDO DUMP"
 BACKUP_FILE=$(docker exec gitea bash -c "ls -t /tmp/gitea-dump-*.zip | head -1")
 FILENAME=$(basename "$BACKUP_FILE")
-docker cp gitea:"$BACKUP_FILE" /BACKUP/gitea/
+docker cp gitea:"$BACKUP_FILE" /BACKUP/gitea/ 1> /dev/null
 
 echo "=== PARANDO GITEA"
 docker stop gitea
@@ -31,5 +31,5 @@ docker start gitea
 
 echo "=== LIMPANDO E COMPACTANDO"
 rm gitea-dump/app.ini
-zip -r gitea-dump-"$TIMESTAMP".zip gitea-dump/
+zip -r -q gitea-dump-"$TIMESTAMP".zip gitea-dump/
 rm -rf gitea-dump/ "$FILENAME"
