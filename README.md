@@ -90,11 +90,6 @@ suportadas oficialmente
 - Arquivos
   - `syncthing` (Instalação)
 
-
-- Jogos
-  - `forge` (Instalação)
-  - `papermc` (Instalação)
-
 ## Utilização
 
 Para fazer o seu primeiro deploy basta editar o arquivo `deploy.sh`
@@ -140,10 +135,8 @@ que faltam para cada serviços em específico, os serviços que não estão list
 são considerados "feature-complete" e basta utilizá-los.
 
 * `cloudbeaver` - Backup / Restore
-* `forge` - Fazer funcionar / Backup / Restore
 * `gitlab` - Backup / Restore
 * `grafana` - Backup / Restore
-* `papermc` - Fazer funcionar / Backup / Restore
 * `portainer` - Backup / Restore
 * `wikijs` - Backup / Restore
 
