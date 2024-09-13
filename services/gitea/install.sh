@@ -12,8 +12,6 @@ echo "=== CRIANDO CONTAINER"
 docker run \
   -d \
   --restart unless-stopped \
-  -p 10881:3000 \
-  -p 10023:22 \
   \
   -e USER_UID=1000 \
   -e USER_GID=1000 \
@@ -22,6 +20,9 @@ docker run \
   -e GITEA__database__USER=postgres \
   -e GITEA__database__DB_TYPE=postgres \
   -e GITEA__database__PASSWD=mysecretpassword \
+  \
+  --network nginx \
+  --ip 172.19.0.5 \
   \
   -v /infra/gitea:/data \
   -v /etc/timezone:/etc/timezone:ro \

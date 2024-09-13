@@ -8,7 +8,9 @@ docker run \
   -p 22000:22000/tcp \
   -p 22000:22000/udp \
   -p 21027:21027/udp \
-  -p 8384:8384 \
+  \
+  --network nginx \
+  --ip 172.19.0.4 \
   \
   -v /infra/syncthing:/var/syncthing \
   \
@@ -16,4 +18,4 @@ docker run \
   --hostname=syncthing \
   \
   --name=syncthing \
-  syncthing/syncthing:1.27 
+  syncthing/syncthing:1.27

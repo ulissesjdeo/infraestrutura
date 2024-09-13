@@ -5,9 +5,9 @@ mkdir -p /infra/portainer
 docker run \
   -d \
   --restart unless-stopped \
-  -p 9443:9443 \
-  -p 9000:9000 \
-  -p 8000:8000 \
+  \
+  --network nginx \
+  --ip 172.19.0.3 \
   \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /infra/portainer:/data \
