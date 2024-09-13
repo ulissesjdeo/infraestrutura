@@ -75,6 +75,7 @@ suportadas oficialmente
 
 
 - Gerenciamento do servidor
+  - `grafana` (Instalação)
   - `portainer` (Instalação)
 
 
@@ -141,6 +142,7 @@ são considerados "feature-complete" e basta utilizá-los.
 * `cloudbeaver` - Backup / Restore
 * `forge` - Fazer funcionar / Backup / Restore
 * `gitlab` - Backup / Restore
+* `grafana` - Backup / Restore
 * `papermc` - Fazer funcionar / Backup / Restore
 * `portainer` - Backup / Restore
 * `wikijs` - Backup / Restore
